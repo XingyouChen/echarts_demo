@@ -1,0 +1,117 @@
+$def with()
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Demo1.0</title>
+    <!-- 引入 echarts.js -->
+    <script src="./static/js/echarts.js"></script>
+    <script src="./static/js/sandian_data.js"></script>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+	var myChart = echarts.init(document.getElementById('main'));
+	// 显示标题，图例和空的坐标轴
+	myChart.setOption({
+	    title : {
+		text: '大一上期成绩分布',
+		subtext: '2013-2014学年第一学期'
+	    },
+	    tooltip : {
+		trigger: 'axis',
+		showDelay : 0,
+		formatter : function (params) {
+		    if (params.value.length > 1) {
+		        return params.seriesName + ' :<br/>' + 'id:'
+		           + params.value[0] + ' score:'
+		           + params.value[1] ;
+		    }
+		    else {
+		        return params.seriesName + ' :<br/>'
+		           + params.name + ' : '
+		           + params.value + 'kg ';
+		    }
+		},  
+		axisPointer:{
+		    show: true,
+		    type : 'cross',
+		    lineStyle: {
+		        type : 'dashed',
+		        width : 1
+		    }
+		}
+	    },
+	    legend: {
+		data:['综合成绩','课程成绩']
+	    },
+	    toolbox: {
+		show : true,
+		feature : {
+		    mark : {show: true},
+		    dataZoom : {show: true},
+		    dataView : {show: true, readOnly: false},
+		    restore : {show: true},
+		    saveAsImage : {show: true}
+		}
+	    },
+	    xAxis : [
+		{
+		    type : 'value',
+		    scale:true,
+		    axisLabel : {
+		        formatter: '{value}'
+		    }
+		}
+	    ],
+	    yAxis : [
+		{
+		    type : 'value',
+		    scale:true,
+		    axisLabel : {
+		        formatter: '{value}'
+		    }
+		}
+	    ],
+	    series : [
+		{
+		    name:'综合成绩',
+		    type:'scatter',
+		    data: data_com,
+		    markPoint : {
+		        data : [
+		            {type : 'max', name: '最大值'},
+		            {type : 'min', name: '最小值'}
+		        ]
+		    },
+		    markLine : {
+		        data : [
+		            {type : 'average', name: '平均值'}
+		        ]
+		    }
+		},
+		{
+		    name:'课程成绩',
+		    type:'scatter',
+		    data: data_test,
+		    markPoint : {
+		        data : [
+		            {type : 'max', name: '最大值'},
+		            {type : 'min', name: '最小值'}
+		        ]
+		    },
+		    markLine : {
+		        data : [
+		            {type : 'average', name: '平均值'}
+		        ]
+		    }
+		}
+	    ]
+	}
+                    );
+
+    </script>
+</body>
+</html>                    
