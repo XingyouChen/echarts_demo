@@ -4,11 +4,10 @@ $def with()
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Demo1.0</title>
+    <title>Demo1.0 </title>
     <!-- 引入 echarts.js -->
     <script src="./static/js/echarts.min.js"></script>
     <script src="./static/js/theme/macarons.js"></script>
-    <script src="./static/js/sandian_data.js"></script>
 </head>
 <body>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
@@ -18,32 +17,11 @@ $def with()
 	// 显示标题，图例和空的坐标轴
 	myChart.setOption({
 	    title : {
-		text: '大一上期成绩分布',
-		subtext: '2013-2014学年第一学期'
+		text: '大一-大三三学年平均成绩变化',
+		subtext: '2013-2015学年'
 	    },
 	    tooltip : {
-		trigger: 'axis',
-		showDelay : 0,
-		formatter : function (params) {
-		    if (params.value.length > 1) {
-		        return params.seriesName + ' :<br/>' + 'id:'
-		           + params.value[0] + ' score:'
-		           + params.value[1] ;
-		    }
-		    else {
-		        return params.seriesName + ' :<br/>'
-		           + params.name + ' : '
-		           + params.value + 'kg ';
-		    }
-		},  
-		axisPointer:{
-		    show: true,
-		    type : 'cross',
-		    lineStyle: {
-		        type : 'dashed',
-		        width : 1
-		    }
-		}
+		trigger: 'axis'
 	    },
 	    legend: {
 		data:['综合成绩','课程成绩']
@@ -52,35 +30,33 @@ $def with()
 		show : true,
 		feature : {
 		    mark : {show: true},
-		    dataZoom : {show: true},
 		    dataView : {show: true, readOnly: false},
+		    magicType : {show: true, type: ['line', 'bar']},
 		    restore : {show: true},
 		    saveAsImage : {show: true}
 		}
 	    },
+	    calculable : true,
 	    xAxis : [
 		{
-		    type : 'value',
-		    scale:true,
-		    axisLabel : {
-		        formatter: '{value}'
-		    }
+		    type : 'category',
+		    boundaryGap : false,
+		    data : ['大一','大二','大三','周四','周五','周六','周日']
 		}
 	    ],
 	    yAxis : [
 		{
 		    type : 'value',
-		    scale:true,
 		    axisLabel : {
-		        formatter: '{value}'
+		        formatter: '{value} °C'
 		    }
 		}
 	    ],
 	    series : [
 		{
 		    name:'综合成绩',
-		    type:'scatter',
-		    data: data_com,
+		    type:'line',
+		    data:[11, 11, 15, 13, 12, 13, 10],
 		    markPoint : {
 		        data : [
 		            {type : 'max', name: '最大值'},
@@ -95,8 +71,8 @@ $def with()
 		},
 		{
 		    name:'课程成绩',
-		    type:'scatter',
-		    data: data_test,
+		    type:'line',
+		    data:[1, -2, 2, 5, 3, 2, 0],
 		    markPoint : {
 		        data : [
 		            {type : 'max', name: '最大值'},
@@ -105,7 +81,7 @@ $def with()
 		    },
 		    markLine : {
 		        data : [
-		            {type : 'average', name: '平均值'}
+		            {type : 'average', name : '平均值'}
 		        ]
 		    }
 		}

@@ -4,11 +4,10 @@ $def with()
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Demo1.0</title>
+    <title>Demo1.0 zhuzhuang</title>
     <!-- 引入 echarts.js -->
     <script src="./static/js/echarts.min.js"></script>
     <script src="./static/js/theme/macarons.js"></script>
-    <script src="./static/js/sandian_data.js"></script>
 </head>
 <body>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
@@ -18,32 +17,11 @@ $def with()
 	// 显示标题，图例和空的坐标轴
 	myChart.setOption({
 	    title : {
-		text: '大一上期成绩分布',
-		subtext: '2013-2014学年第一学期'
+		text: '大一各班级平均成绩',
+		subtext: '2013-2014学年'
 	    },
 	    tooltip : {
-		trigger: 'axis',
-		showDelay : 0,
-		formatter : function (params) {
-		    if (params.value.length > 1) {
-		        return params.seriesName + ' :<br/>' + 'id:'
-		           + params.value[0] + ' score:'
-		           + params.value[1] ;
-		    }
-		    else {
-		        return params.seriesName + ' :<br/>'
-		           + params.name + ' : '
-		           + params.value + 'kg ';
-		    }
-		},  
-		axisPointer:{
-		    show: true,
-		    type : 'cross',
-		    lineStyle: {
-		        type : 'dashed',
-		        width : 1
-		    }
-		}
+		trigger: 'axis'
 	    },
 	    legend: {
 		data:['综合成绩','课程成绩']
@@ -52,35 +30,29 @@ $def with()
 		show : true,
 		feature : {
 		    mark : {show: true},
-		    dataZoom : {show: true},
 		    dataView : {show: true, readOnly: false},
+		    magicType : {show: true, type: ['line', 'bar']},
 		    restore : {show: true},
 		    saveAsImage : {show: true}
 		}
 	    },
+	    calculable : true,
 	    xAxis : [
 		{
-		    type : 'value',
-		    scale:true,
-		    axisLabel : {
-		        formatter: '{value}'
-		    }
+		    type : 'category',
+		    data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
 		}
 	    ],
 	    yAxis : [
 		{
-		    type : 'value',
-		    scale:true,
-		    axisLabel : {
-		        formatter: '{value}'
-		    }
+		    type : 'value'
 		}
 	    ],
 	    series : [
 		{
 		    name:'综合成绩',
-		    type:'scatter',
-		    data: data_com,
+		    type:'bar',
+		    data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
 		    markPoint : {
 		        data : [
 		            {type : 'max', name: '最大值'},
@@ -95,17 +67,17 @@ $def with()
 		},
 		{
 		    name:'课程成绩',
-		    type:'scatter',
-		    data: data_test,
+		    type:'bar',
+		    data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
 		    markPoint : {
 		        data : [
-		            {type : 'max', name: '最大值'},
-		            {type : 'min', name: '最小值'}
+		            {name : '最高', value : 182.2, xAxis: 7, yAxis: 183, symbolSize:18},
+		            {name : '最低', value : 2.3, xAxis: 11, yAxis: 3}
 		        ]
 		    },
 		    markLine : {
 		        data : [
-		            {type : 'average', name: '平均值'}
+		            {type : 'average', name : '平均值'}
 		        ]
 		    }
 		}
